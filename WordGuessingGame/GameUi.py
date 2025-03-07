@@ -8,7 +8,7 @@ words = ['rainbow', 'computer', 'science', 'programming',
          'reverse', 'water', 'board', 'geeks']
 
 word = random.choice(words)
-
+print(word)
 app = Tk() 
 count = 0
 
@@ -16,27 +16,36 @@ userv = StringVar()
 user = Entry(app, textvariable=userv, justify=CENTER, relief=FLAT, borderwidth=2, font='Helvicta 18 bold')
 user.pack(pady=10)
 
+
 n = len(word)
 repeated_list = ['*'] * n
-displayLable = "".join(repeated_list)
+displayLable = "  ".join(repeated_list)
 sc = Label(app, text=displayLable, font='lucida 8 bold ')
 sc.pack(anchor=E, padx=200, pady=5) 
+
 
 k =n
 
 def on_key_pressed(event):
    global k
    entered_char = userv.get()
+   chrlen = len(entered_char)
+   c = entered_char
+   if chrlen >1 :
+      c = entered_char[chrlen-1]
    
-   if entered_char in word :
-        repeated_list[n-k]=entered_char
-        k -=1
-        print(k)
-        
-        
-        sc.config(text="".join(repeated_list))
+   if c in word :
+      repeated_list[n-k] = c
+      sc.config(text="  ".join(repeated_list))
+      
+      if  entered_char == word :
+         tmsg.showinfo( 'Win', f'You guess the right word') 
+      
+      if k > 0 :
+          k-=1  
+       
    
-user.bind('<KeyPress>',on_key_pressed)
+user.bind('<KeyRelease>',on_key_pressed)
 
 
 
