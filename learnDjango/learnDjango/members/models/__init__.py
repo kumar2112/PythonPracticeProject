@@ -1,0 +1,1 @@
+from members.models.member import Member
